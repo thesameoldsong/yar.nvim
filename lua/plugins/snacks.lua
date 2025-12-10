@@ -11,6 +11,14 @@ return {
       replace_netrw = true,
       trash = true,
     },
+    picker = {
+      sources = {
+        explorer = {
+          jump = { close = true },
+          layout = { preset = 'vscode' },
+        },
+      },
+    },
     animate = {
       enabled = true,
     },
