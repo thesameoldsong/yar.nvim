@@ -117,6 +117,7 @@ require('lazy').setup({
   require 'plugins.which-key',
   require 'plugins.telescope',
   require 'plugins.lazydev',
+  require 'plugins.render-markdown',
   require 'plugins.snacks',
   require 'plugins.lsp',
   -- require 'plugins.lint',
@@ -341,7 +342,7 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   require 'kickstart.plugins.debug',
-  require 'kickstart.plugins.autopairs',
+  require 'plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
