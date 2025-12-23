@@ -2,6 +2,18 @@ return {
   'folke/which-key.nvim',
   event = 'VimEnter', -- Sets the loading event to 'VimEnter'
   opts = {
+    filter = function(mapping)
+      if mapping.desc == nil or mapping.desc == '' then
+        return false
+      end
+
+      if mapping.desc:lower():match 'lm %(' or mapping.desc:lower():match 'translate' then
+        return false
+      end
+
+      return mapping.lhs:match '[\128-\255]' == nil
+    end,
+
     -- delay between pressing a key and opening which-key (milliseconds)
     -- this setting is independent of vim.o.timeoutlen
     delay = 0,
