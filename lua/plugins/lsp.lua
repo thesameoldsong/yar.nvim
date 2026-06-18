@@ -154,8 +154,9 @@ return {
     --  - settings (table): Override the default settings passed when initializing the server.
     --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
     local servers = {
-      -- clangd = {},
-      -- gopls = {},
+      clangd = {},
+      gopls = {},
+      zls = {},
       pyright = {
         settings = {
           pyright = {
@@ -191,6 +192,7 @@ return {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua',
+      'goimports',
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
