@@ -29,8 +29,17 @@ end
 function M.apply()
   local spec = load_spec()
   if spec then
-    if type(spec.colorscheme) == 'string' and pcall(vim.cmd.colorscheme, spec.colorscheme) then
-      return
+    if type(spec.colorscheme) == 'string' then
+      -- часть плагинов выбирает вариант (dark/light) через setup{style=...},
+      -- а не отдельным colorscheme (onedark.nvim) — прогреваем перед :colorscheme
+      if type(spec.style) == 'string' then
+        pcall(function()
+          require(spec.colorscheme).setup { style = spec.style }
+        end)
+      end
+      if pcall(vim.cmd.colorscheme, spec.colorscheme) then
+        return
+      end
     elseif type(spec.palette) == 'table' and apply_palette(spec) then
       return
     end

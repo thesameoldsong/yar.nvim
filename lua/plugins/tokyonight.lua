@@ -8,7 +8,6 @@ return {
         comments = { italic = false }, -- Disable italics in comments
       },
     }
-
-    vim.cmd.colorscheme 'tokyonight-night'
+    -- colorscheme применяется в init.lua из схемы theming
   end,
 }
