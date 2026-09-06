@@ -157,24 +157,25 @@ return {
       clangd = {},
       gopls = {},
       zls = {},
-      pyright = {
-        settings = {
-          pyright = {
-            disableOrganizeImports = true,
-          },
-          python = {
-            analysis = {
-              typeCheckingMode = 'off',
-              ignore = { '*' },
-            },
-            pythonPath = './.venv/bin/python3',
-          },
-        },
-      },
+      -- pyright = {
+      --   settings = {
+      --     pyright = {
+      --       disableOrganizeImports = true,
+      --     },
+      --     python = {
+      --       analysis = {
+      --         typeCheckingMode = 'off',
+      --         ignore = { '*' },
+      --       },
+      --       pythonPath = './.venv/bin/python3',
+      --     },
+      --   },
+      -- },
+      ty = {},
       ruff = {
-        on_attach = function(client)
-          client.server_capabilities.hoverProvider = false
-        end,
+        -- on_attach = function(client)
+        --   client.server_capabilities.hoverProvider = false
+        -- end,
       },
       rust_analyzer = {},
       ts_ls = {},
@@ -198,7 +199,8 @@ return {
 
     for server_name, server_config in pairs(servers) do
       server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
-      require('lspconfig')[server_name].setup(server_config)
+      vim.lsp.config(server_name, server_config)
+      vim.lsp.enable(server_name)
     end
   end,
 }
