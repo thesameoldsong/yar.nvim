@@ -9,12 +9,16 @@
 local M = {}
 
 local FALLBACK = 'tokyonight-night'
-local SCHEME = vim.fs.normalize '~/.config/theming/schemes/current/nvim.lua'
+local state = vim.env.XDG_STATE_HOME
+if not state or state:sub(1, 1) ~= "/" then state = vim.env.HOME .. "/.local/state" end
+local SCHEME = vim.fs.joinpath(state, "theming/current/nvim.lua")
 
 -- спецификация активной схемы (или nil, если файла/таблицы нет)
 local function load_spec()
   local ok, spec = pcall(dofile, SCHEME)
-  return (ok and type(spec) == 'table') and spec or nil
+  if not ok and vim.uv.fs_stat(SCHEME) then error(spec) end
+  if ok and type(spec) ~= 'table' then error('invalid theming specification') end
+  return ok and spec or nil
 end
 
 -- покрасить из палитры схемы (base16 через mini.base16); true при успехе
@@ -37,9 +41,9 @@ function M.apply()
           require(spec.colorscheme).setup { style = spec.style }
         end)
       end
-      if pcall(vim.cmd.colorscheme, spec.colorscheme) then
-        return
-      end
+      local ok, err = pcall(vim.cmd.colorscheme, spec.colorscheme)
+      if not ok then error(err) end
+      return
     elseif type(spec.palette) == 'table' and apply_palette(spec) then
       return
     end
