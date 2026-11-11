@@ -9,4 +9,7 @@ return {
   { 'rebelot/kanagawa.nvim', lazy = true },
   { 'Mofiqul/vscode.nvim', lazy = true },
   { 'Shatur/neovim-ayu', lazy = true },
+  { 'cpplain/flexoki.nvim', lazy = true },
+  { 'NLKNguyen/papercolor-theme', lazy = true },
+  { 'zenbones-theme/zenbones.nvim', dependencies = { 'rktjmp/lush.nvim' }, lazy = true },
 }
